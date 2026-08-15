@@ -15,9 +15,9 @@ This repository demonstrates the implementation of the Page Object Model (POM) d
 - Easy-to-maintain test structure suitable for scaling automation suites
 
 ## Installation
-Before following the steps given below, please ensure that npm and node are installed on your machine.
-- **Step1:** Install Playwright's latest version `npm init playwright@latest`
-- **Step2:** Install Playwright supported browsers `npx playwright install`
+Before executing the command `npm install`, please ensure that npm and node are installed on your machine.
+
+**NOTE: BEFORE RUNNING THE TESTS, CREATE `.env.dev.secret` FILE AND ADD THE REQUIRED `PASSWORD` VALUE TO IT.**
 
 ## Execution
 - Run all the test cases from the "./tests" folder
