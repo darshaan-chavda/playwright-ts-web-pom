@@ -1,16 +1,16 @@
 import { Locator, expect } from '@playwright/test';
-import { BasePage } from './basePage';
+import { BasePage } from './base.page';
 
 export class CartPage extends BasePage {
-    readonly checkoutButton: Locator = this.page.locator('//button[@id="checkout"]');
-    readonly firstNameInput: Locator = this.page.locator('//input[@id="first-name"]');
-    readonly lastNameInput: Locator = this.page.locator('//input[@id="last-name"]');
-    readonly postalCodeInput: Locator = this.page.locator('//input[@id="postal-code"]');
-    readonly continueButton: Locator = this.page.locator('//input[@id="continue"]');
-    readonly finishButton: Locator = this.page.locator('//button[@id="finish"]');
+    readonly checkoutButton: Locator = this.page.locator('#checkout');
+    readonly firstNameInput: Locator = this.page.locator('#first-name');
+    readonly lastNameInput: Locator = this.page.locator('#last-name');
+    readonly postalCodeInput: Locator = this.page.locator('#postal-code');
+    readonly continueButton: Locator = this.page.locator('#continue');
+    readonly finishButton: Locator = this.page.locator('#finish');
     readonly itemNameInput: Locator = this.page.locator('//div[@class="inventory_item_name"]');
     readonly successMessage: Locator = this.page.locator('//h2[@class="complete-header"]');
-    readonly backHomeButton: Locator = this.page.locator('//button[@id="back-to-products"]');
+    readonly backHomeButton: Locator = this.page.locator('#back-to-products');
     readonly postalErrorMessage: Locator = this.page.locator('//h3[@data-test="error"]');
 
     async enterCheckoutInformation(firstName: string, lastName: string, postalCode: string): Promise<void> {

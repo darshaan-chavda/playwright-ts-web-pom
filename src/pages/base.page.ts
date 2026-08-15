@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class BasePage {
     // Playwright page instance used to interact with the browser.
