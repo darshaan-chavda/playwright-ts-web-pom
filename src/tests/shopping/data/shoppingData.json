@@ -1,0 +1,13 @@
+{
+    "dev": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "postalCode": "90001",
+        "itemName": "Sauce Labs Backpack",
+        "messages": {
+            "postal": "Error: Postal Code is required",
+            "success": "Thank you for your order!"
+        }
+    },
+    "uat": {}
+}

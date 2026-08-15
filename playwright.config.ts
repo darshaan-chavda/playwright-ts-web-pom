@@ -1,7 +1,18 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
+
+require('dotenv').config({
+    path: path.resolve(__dirname, `.env.${process.env.TEST_ENV || 'dev'}`),
+});
+
+require('dotenv').config({
+    path: path.resolve(__dirname, `.env.${process.env.TEST_ENV || 'dev'}.secret`),
+    override: true,
+});
 
 export default defineConfig({
     testDir: './src/tests',
+    globalSetup: './utility/global-setup.ts',
     timeout: 90 * 1000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
@@ -10,7 +21,7 @@ export default defineConfig({
     reporter: [['list'], ['html', { open: 'on-failure' }]],
 
     use: {
-        baseURL: 'https://www.saucedemo.com',
+        baseURL: process.env.BASE_URL,
         headless: true,
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
@@ -21,13 +32,26 @@ export default defineConfig({
 
     projects: [
         {
+            name: 'setup',
+            testMatch: 'src/tests/auth.setup.ts',
+            use: {
+                baseURL: process.env.BASE_URL,
+                headless: true,
+                actionTimeout: 60 * 1000,
+                navigationTimeout: 60 * 1000,
+            },
+        },
+        {
             name: 'chromium',
-            use: { ...devices['Desktop Chrome'] },
+            use: { ...devices['Desktop Chrome'], storageState: 'auth.json' },
+            dependencies: ['setup'],
         },
 
         // {
         //   name: 'firefox',
         //   use: { ...devices['Desktop Firefox'] },
+        //   dependencies: ['setup'],
+
         // },
     ],
 });

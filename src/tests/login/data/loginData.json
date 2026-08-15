@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "validData": {},
+        "invalidData": {
+            "userName": "user_123",
+            "password": "password_123"
+        },
+        "errorMessage": "Epic sadface: Username and password do not match any user in this service"
+    },
+    "uat": {}
+}

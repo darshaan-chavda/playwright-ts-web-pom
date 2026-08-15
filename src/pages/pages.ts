@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
-import { LoginPage } from './login-page';
-import { InventoryPage } from './inventory-page';
-import { CartPage } from './cart-page';
+import { LoginPage } from './loginPage';
+import { InventoryPage } from './inventoryPage';
+import { CartPage } from './cartPage';
 
 export const Pages = (page: Page) => {
     return {

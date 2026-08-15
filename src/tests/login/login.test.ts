@@ -1,6 +1,10 @@
 import { expect, test } from '@playwright/test';
 import { Pages } from '../../pages/pages';
-import * as data from '../login/data/this.json';
+import * as data from './data/loginData.json';
+
+// Set the environment variable to determine which test data to use
+const env: string = (process.env.TEST_ENV || 'dev').toLowerCase();
+const testData: any = data[env as keyof typeof data];
 
 test.describe('[@Feature-Login] Verify Login test scenarios', () => {
     test('[@P1 @Smoke] Verify user login with valid credentials and logout successfully', async ({ page }) => {
@@ -8,7 +12,7 @@ test.describe('[@Feature-Login] Verify Login test scenarios', () => {
 
         // Login with valid credentials
         await pages.loginPage.gotoLoginPage();
-        await pages.loginPage.loginWithCredentials(data.validData.userName, data.validData.password);
+        await pages.loginPage.loginWithCredentials(process.env.USERNAME!, process.env.PASSWORD!);
         await expect(page).toHaveURL('/inventory.html');
 
         // Logout to page
@@ -21,10 +25,10 @@ test.describe('[@Feature-Login] Verify Login test scenarios', () => {
 
         // Login with invalid credentials
         await pages.loginPage.gotoLoginPage();
-        await pages.loginPage.loginWithCredentials(data.invalidData.userName, data.invalidData.password);
+        await pages.loginPage.loginWithCredentials(testData.invalidData.userName, testData.invalidData.password);
         await expect(page).not.toHaveURL('/inventory.html');
 
         // Verify error message displayed
-        await expect(pages.loginPage.errorMessage).toHaveText(data.errorMessage);
+        await expect(pages.loginPage.errorMessage).toHaveText(testData.errorMessage);
     });
 });

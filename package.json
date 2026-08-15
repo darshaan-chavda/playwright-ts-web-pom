@@ -4,13 +4,19 @@
     "description": "Playwright Page Object Model with TypeScript",
     "main": "index.js",
     "scripts": {
-        "test": "npx playwright test"
+        "test": "npx playwright test",
+        "test:dev": "cross-env TEST_ENV=dev DOTENV_CONFIG_QUIET=true npx playwright test",
+        "test:uat": "cross-env TEST_ENV=uat DOTENV_CONFIG_QUIET=true npx playwright test"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "@playwright/test": "^1.51.0",
-        "@types/node": "^20.10.5"
+        "@types/node": "^20.10.5",
+        "cross-env": "^10.1.0"
+    },
+    "dependencies": {
+        "dotenv": "^17.4.2"
     }
 }
