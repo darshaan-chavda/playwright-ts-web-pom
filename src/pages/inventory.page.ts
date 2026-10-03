@@ -17,6 +17,7 @@ export class InventoryPage extends BasePage {
     }
     async logoutUser(): Promise<void> {
         await this.burgerMenu.click();
+        await this.logoutOption.isVisible();
         await this.logoutOption.click();
     }
 

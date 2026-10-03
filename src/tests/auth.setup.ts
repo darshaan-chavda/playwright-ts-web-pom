@@ -1,13 +1,10 @@
-import path from 'path';
-import { test as setup, expect } from '@playwright/test';
-import { Pages } from '../pages/pages';
+import { test as setup, expect } from '../fixtures/page.fixture';
+import { userTestData } from '../data/users';
+const authFilePath = `.auth/${process.env.TEST_ENV}.json`;
 
-const authFilePath = path.resolve(process.cwd(), 'auth.json');
-
-setup('authenticate', async ({ page }) => {
-    const pages = Pages(page);
-    await pages.loginPage.gotoLoginPage();
-    await pages.loginPage.loginWithCredentials(process.env.USERNAME!, process.env.PASSWORD!);
+setup('authenticate', async ({ loginPage, page }) => {
+    await loginPage.gotoLoginPage();
+    await loginPage.loginWithCredentials(userTestData.standard_username, userTestData.standard_password);
     await expect(page).toHaveURL('/inventory.html');
 
     // Store the auth session

@@ -13,11 +13,11 @@ require('dotenv').config({
 export default defineConfig({
     testDir: './src/tests',
     globalSetup: './utility/global-setup.ts',
-    timeout: 90 * 1000,
+    timeout: 60_000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 2 : 0,
-    workers: process.env.CI ? 1 : undefined,
+    retries: process.env.CI ? 2 : 2,
+    workers: process.env.CI ? 2 : undefined,
     reporter: [['list'], ['html', { open: 'on-failure' }]],
 
     use: {
@@ -25,15 +25,15 @@ export default defineConfig({
         headless: true,
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
-        actionTimeout: 90 * 1000,
-        navigationTimeout: 90 * 1000,
+        actionTimeout: 60_1000,
+        navigationTimeout: 60_1000,
         trace: 'on-first-retry',
     },
 
     projects: [
         {
             name: 'setup',
-            testMatch: 'src/tests/auth.setup.ts',
+            testMatch: `.auth/${process.env.TEST_ENV}.json`,
             use: {
                 baseURL: process.env.BASE_URL,
                 headless: true,
@@ -42,16 +42,15 @@ export default defineConfig({
             },
         },
         {
-            name: 'chromium',
-            use: { ...devices['Desktop Chrome'], storageState: 'auth.json' },
+            name: 'chrome',
+            use: { ...devices['Desktop Chrome'], storageState: `.auth/${process.env.TEST_ENV}.json` },
             dependencies: ['setup'],
         },
 
-        // {
-        //   name: 'firefox',
-        //   use: { ...devices['Desktop Firefox'] },
-        //   dependencies: ['setup'],
-
-        // },
+        {
+            name: 'firefox',
+            use: { ...devices['Desktop Firefox'], storageState: `.auth/${process.env.TEST_ENV}.json` },
+            dependencies: ['setup'],
+        },
     ],
 });

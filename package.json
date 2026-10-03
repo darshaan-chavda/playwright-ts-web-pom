@@ -6,10 +6,17 @@
     "scripts": {
         "test": "npx playwright test",
         "test:dev": "cross-env TEST_ENV=dev DOTENV_CONFIG_QUIET=true npx playwright test",
-        "test:uat": "cross-env TEST_ENV=uat DOTENV_CONFIG_QUIET=true npx playwright test"
+        "test:uat": "cross-env TEST_ENV=uat DOTENV_CONFIG_QUIET=true npx playwright test",
+        "test:headed": "npx playwright test --headed",
+        "test:debug": "npx playwright test --debug",
+        "test:chrome": "npx playwright test --project=chrome",
+        "test:firefox": "npx playwright test --project=firefox",
+        "test:smoke": "npx playwright test --grep @smoke",
+        "test:regression": "npx playwright test --grep @regression",
+        "report": "npx playwright show-report"
     },
     "keywords": [],
-    "author": "",
+    "author": "Darshaan Chavda",
     "license": "ISC",
     "devDependencies": {
         "@playwright/test": "^1.51.0",
