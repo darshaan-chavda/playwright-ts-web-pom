@@ -4,5 +4,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /.github/
-.auth
+/.auth/
 *.secret
