@@ -7,6 +7,7 @@ test.describe('[@Feature-Shopping] Verify Shopping test scenarios', () => {
         await inventoryPage.navigateToInventoryPage();
 
         // Navigate to cart page
+        await inventoryPage.navigateToInventoryPage();
         await inventoryPage.navigateToCartPage();
         await expect(cartPage.itemNameInput).toHaveText(shoppingTestData.itemName);
 

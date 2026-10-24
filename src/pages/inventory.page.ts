@@ -3,10 +3,10 @@ import { expect, Locator } from '@playwright/test';
 
 export class InventoryPage extends BasePage {
     readonly burgerMenu: Locator = this.page.locator('#react-burger-menu-btn');
-    readonly allItemsOption: Locator = this.page.locator('//a[text()="All Items"]');
-    readonly aboutOption: Locator = this.page.locator('//a[text()="About"]');
-    readonly logoutOption: Locator = this.page.locator('//a[text()="Logout"]');
-    readonly resetAppStateOption: Locator = this.page.locator('//a[text()="Reset App State"]');
+    readonly allItemsOption: Locator = this.page.getByText('All Items');
+    readonly aboutOption: Locator = this.page.getByText('About');
+    readonly logoutOption: Locator = this.page.getByText('Logout');
+    readonly resetAppStateOption: Locator = this.page.getByText('Reset App State');
     readonly burgerMenuClose: Locator = this.page.locator('#react-burger-cross-btn');
     readonly addCartBackpackButton: Locator = this.page.locator('#add-to-cart-sauce-labs-backpack');
     readonly cartButton: Locator = this.page.locator('#shopping_cart_container');

@@ -8,6 +8,6 @@ export class BasePage {
 
     // Navigates to the specified URL and waits until the HTML document has been loaded.
     async navigate(url: string): Promise<void> {
-        await this.page.goto(url, { waitUntil: 'domcontentloaded' });
+        await this.page.goto(url, { waitUntil: 'load' });
     }
 }

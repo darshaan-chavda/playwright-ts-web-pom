@@ -10,14 +10,16 @@ require('dotenv').config({
     override: true,
 });
 
+const authFilePath = `.auth/${process.env.TEST_ENV || 'dev'}.json`;
+
 export default defineConfig({
     testDir: './src/tests',
     globalSetup: './utility/global-setup.ts',
-    timeout: 60_000,
+    timeout: 60_1000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 2 : 2,
-    workers: process.env.CI ? 2 : undefined,
+    retries: process.env.CI ? 2 : 1,
+    workers: process.env.CI ? 2 : 2,
     reporter: [['list'], ['html', { open: 'on-failure' }]],
 
     use: {
@@ -25,31 +27,37 @@ export default defineConfig({
         headless: true,
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
-        actionTimeout: 60_1000,
-        navigationTimeout: 60_1000,
+        actionTimeout: 30_1000,
+        navigationTimeout: 30_1000,
         trace: 'on-first-retry',
     },
 
     projects: [
         {
             name: 'setup',
-            testMatch: `.auth/${process.env.TEST_ENV}.json`,
+            testMatch: 'src/tests/auth.setup.ts',
             use: {
                 baseURL: process.env.BASE_URL,
                 headless: true,
-                actionTimeout: 60 * 1000,
-                navigationTimeout: 60 * 1000,
+                actionTimeout: 30_1000,
+                navigationTimeout: 30_1000,
             },
         },
         {
             name: 'chrome',
-            use: { ...devices['Desktop Chrome'], storageState: `.auth/${process.env.TEST_ENV}.json` },
+            use: {
+                ...devices['Desktop Chrome'],
+                storageState: authFilePath,
+            },
             dependencies: ['setup'],
         },
 
         {
             name: 'firefox',
-            use: { ...devices['Desktop Firefox'], storageState: `.auth/${process.env.TEST_ENV}.json` },
+            use: {
+                ...devices['Desktop Firefox'],
+                storageState: authFilePath,
+            },
             dependencies: ['setup'],
         },
     ],
